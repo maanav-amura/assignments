@@ -1,6 +1,6 @@
 #  return the highest and lowest number from a string of space separated numbers
 def high_and_low(array = nil)
-  array = array.split(' ').map(&:to_i)
+  array = array.split(' ').map!(&:to_i)
   "#{array.max} #{array.min}"
 end
 
