@@ -16,5 +16,5 @@ p sum_of_n(nil) # nil
 p sum_of_n(0)   # [0]
 p sum_of_n(-1)  # [0, -1]
 p sum_of_n('')  # nil
-p Benchmark.measure{sum_of_n(5)}
-# <Benchmark::Tms:0x00000001ba0850 @label="", @real=6.889999895065557e-06, @cstime=0.0, @cutime=0.0, @stime=0.0, @utime=0.0, @total=0.0>
+puts Benchmark.measure{sum_of_n(5)}
+#   0.000000   0.000000   0.000000 (  0.000005)
