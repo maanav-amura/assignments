@@ -16,5 +16,5 @@ p sum_of_n(nil) # nil
 p sum_of_n(0)   # [0]
 p sum_of_n(-1)  # [0, -1]
 p sum_of_n('')  # nil
-puts Benchmark.measure{sum_of_n(5)}
+puts Benchmark.measure{ sum_of_n(5) }
 #   0.000000   0.000000   0.000000 (  0.000005)
