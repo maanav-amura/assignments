@@ -33,3 +33,26 @@ Step 7- Learn ruby on rails
 => Completed HackerEarth Ruby challenges
 => Codewars Ruby challenges
 => Introduction to web technologies - Udemy
+
+Ruby
+
+->  Classes and objects
+->  Methods
+->  Strings and operations
+->  Boolean expression and operations
+->  Arrays
+->  Hashes
+->  Methods
+->  Blocks, procs and lambdas
+->  Modules
+->  Files
+->  Implicit and Explicit Blocks
+->  Yield
+->  Instance variables and accessors
+->  Class variables and methods
+->  Exception
+->  Enumerators and enumerables
+->  Object references
+->  Cloning and freezing objects
+->  Singleton methods
+->  Benchmarking
