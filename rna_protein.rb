@@ -53,7 +53,7 @@ def protein(rna = '')
 end
 
 # Normal Test case
-protein('UGCGAUGAAUGGGCUCGCUCC') # ->  CDEWARS
+puts protein('UGCGAUGAAUGGGCUCGCUCC') # ->  CDEWARS
 # With Space in between
 puts protein('UGC GAU GAA UAA GCU CGC UCC') # ->  CDE
 # With multiple spaces
@@ -61,7 +61,7 @@ puts protein('UGC GAU  UAA GAA UAA GCU CGC UCC') # ->  CD
 # With first sequence as 'Stop'
 puts protein('UGACCAACAGCA') # ->
 # With RNA Sequence of not length as multiple of 3
-puts protein('UGC GAU GAA GCU CGC UCC GC') # ->  CDEWARS
+puts protein('UGC GAU GAA GCU CGC UCC GC') # ->  CDEARS
 # With digits
 puts protein('UGC GAU GAA GCU CGC777 UCC') # -> CDEARS
 # With non-matching key in dictionary
