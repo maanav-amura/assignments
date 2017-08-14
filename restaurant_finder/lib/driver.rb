@@ -6,7 +6,7 @@ class Driver
   include NumberFormat
   # Label class for producing actions
   class Label
-      @@labels = ['Add', 'List', 'Find','Quit']
+      @@labels = %w(Add List Find Quit)
       def self.options
         @@labels
       end
