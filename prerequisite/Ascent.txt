@@ -1,0 +1,1074 @@
+1. sum of cubes of range
+
+def sum_of_cubes(a, b)
+  (a..b).inject(0) {|sum,num| sum += (num*num*num)} 
+end
+
+OR
+
+def sum_of_cubes(a, b)
+  (a..b).inject(0) { |sum, x| sum += (x*x*x) }
+end
+
+Block
+
+A section of code which is grouped together.
+A block is code that you can store in a variable like any other object and run on demand.
+The `lambda` keyword is what is most commonly used to create a block in Ruby
+
+addition = lambda {|a, b| return a + b }
+puts addition.call(5, 6)
+
+Are blocks objects? Yes, like almost everything else in Ruby, they are.
+empty_block = lambda { }
+puts empty_block.object_id
+puts empty_block.class
+puts empty_block.class.superclass
+=>
+69886835803320
+Proc
+Object
+
+class Calculator
+  def add(a, b)
+    return a + b
+  end
+end
+
+You can define classes as well as - 
+
+operator overloading
+
+addition_method = Calculator.new.method("add")
+addition =  addition_method.to_proc
+
+puts addition.call(5, 6)
+
+Yeild
+
+def calculation(a, b, operation)
+  operation.call(a, b)
+end
+puts calculation(5, 6, lambda { |a, b| a + b }) # addition
+puts calculation(5, 6, lambda { |a, b| a - b }) # subtraction
+
+=>
+
+def calculation(a, b)
+  yield(a, b)
+end
+puts calculation(5, 6) { |a, b| a + b } # addition
+puts calculation(5, 6) { |a, b| a - b } # subtraction
+
+def foo
+  yield if block_given?
+end
+
+def prettify_it
+  "The result of the block was: #{yield}"
+end
+
+Converting implicit to explicit
+
+def calculation(a, b)
+  yield(a, b) # yield calls an implicit (unnamed) block 
+end
+
+addition = lambda {|x, y| x + y}
+puts calculation(5, 5, &addition) # like our last example, &addition is 
+                                  # an explicit (named) block 
+                                  # -- but `yield` can still call it!
+
+Convert the explicit block to implicit by using & when passing it on to Array#select.
+def filter(array, block)
+ return array.select(&block)
+end
+
+As far as we're concerned, both sentences mean the same thing and the phrase "is a" is equivalent to "instance of".
+
+def know_it_all(object)
+  object.class
+end
+
+The Class#superclass method tells you which class any given class was inherited from. Note that it's an instance method on Class and not on Object
+puts Float.superclass    # Numeric
+puts Numeric.superclass  # Object
+puts Object.superclass   # BasicObject
+
+puts Float.instance_methods.count
+>> 201
+
+def is_ancestor?(klass, subclass)
+  current_class = subclass
+  while !current_class.superclass.nil? && current_class != klass
+    current_class = current_class.superclass
+  end
+  current_class == klass
+end
+
+Pay special attention to the syntax - the < operator informs Ruby that when creating the class MyArray, it should set Array as its superclass.
+
+class Rectangle
+  def initialize(length, breadth)
+    @length = length
+    @breadth = breadth
+  end
+
+  def perimeter
+    2 * (@length + @breadth)
+  end
+end
+
+class Square < Rectangle
+  def initialize(side)
+    @length = side
+    @breadth = side
+  end
+  
+  #perimeter for free from Rectangle  
+end
+
+class Fixnum
+  def +(other)
+    42
+  end
+end
+
+Redefining a method involves simply replacing one method with another.
+class Fixnum
+  def +(other)
+    42
+  end
+end
+
+class Animal
+  def move
+    "I can move"
+  end
+end
+
+class Bird < Animal
+  def move
+    super + " by flying"
+  end
+end
+
+class Human < Animal
+  def move
+    super + " by walking"
+  end
+end
+
+class Penguin < Bird
+  def move
+    "I can move" + " by swimming"
+  end
+end
+
+class Item
+  attr_reader :color
+  attr_writer :description, :color
+  
+  def initialize(description, color)
+    @description = description
+    @color = color
+  end
+end
+
+Getter Setter
+
+item = Item.new("no","red")
+puts item.color
+item.color=("blue")
+puts item.color
+
+Operator iverloading
+
+class Item
+    def initialize(item_name, qty)
+        @item_name = item_name
+        @qty = qty
+    end
+    def to_s
+        "Item (#{@item_name}, #{@qty})"
+    end
+    def ==(other_item)
+        puts "Method == called on #{self} with parameter #{other_item}"
+        false
+    end
+end
+
+# this line should invoke the `==` method defined in the Item class.
+puts Item.new("abcd",1) == Item.new("abcd", 1)
+
+class Item
+    attr_reader :item_name, :qty
+    
+    def initialize(item_name, qty)
+        @item_name = item_name
+        @qty = qty
+    end
+    def to_s
+        "Item (#{@item_name}, #{@qty})"
+    end
+    def ==(other_item)
+      item_name==other_item.item_name && qty==other_item.qty
+    end
+end
+
+p Item.new("abcd",1)  == Item.new("abcd",1)
+p Item.new("abcd",2)  == Item.new("abcd",1)
+
+The short answer is that we failed to implement two other methods that are crucial to get object equality correct: the eql? and hash methods. Why do we need these two over and above the simple == ? 
+because it would return all elements as uniq even though all items in an array are same
+
+class Item
+  attr_reader :item_name, :qty
+  
+  def initialize(item_name, qty)
+    @item_name = item_name
+    @qty = qty
+  end
+  
+  def to_s
+    "Item (#{@item_name}, #{@qty})"
+  end
+  
+  def hash
+    self.item_name.hash ^ self.qty.hash
+  end
+
+  def eql?(other_item)
+    puts "#eql? invoked"
+    @item_name == other_item.item_name && @qty == other_item.qty
+  end
+  
+end
+
+p Item.new("abcd", 1).hash
+
+items = [Item.new("abcd", 1), Item.new("abcd", 1), Item.new("abcd", 1)]
+p items.uniq
+
+
+class Item
+  attr_reader :item_name, :quantity, :supplier_name, :price
+  
+  def initialize(item_name, quantity, supplier_name, price)
+    @item_name = item_name
+    @quantity = quantity
+    @supplier_name = supplier_name
+    @price = price
+  end 
+  
+  # implement ==, eql? and hash
+  def ==(item)
+    @item_name==item.item_name &&
+    @quantity==item.quantity &&
+    @supplier_name==item.supplier_name &&
+    @price==item.price
+  end
+  
+  def eql? (item)
+    self==item
+  end
+  
+  def hash
+    @item_name.hash ^ @quantity.hash ^ @supplier_name.hash ^ @price.hash
+  end
+end
+
+  
+puts generally prints the result of applying to_s on an object while p prints the result of inspecting the object. 
+ As you can see, puts prints the class name of the object along with a number displayed as hex. The number is relative to the position of the object in memory, but we seldom find any use for it.
+
+p on the other hand prints the class name and all the instance variables of the object. This can be very useful while debugging. 
+
+Serializing
+
+ The first program will transform some of its objects into a string and then write those strings to a file. The second program will look for the file in a shared location (this is particularly easy if both programs are running on the same computer), read it, and turn the strings in the file back into Ruby objects. Take a look back at the Ruby Primer's I/O chapter if you need a refresher on Ruby's file libraries.
+
+This basic concept (transferring data between programs) is essentially what we're referring to when we say "serializing".
+
+You may have heard of XML, json, or YAML. Ruby can produce any of these formats (they're all strings, by the way) but we'll specifically take a look at YAML since it's built right into the Ruby language. Here, YAML::dump and YAML::load do all the heavy lifting for us.
+
+class Ogre
+  def initialize(strength, speed)
+    @strength = strength
+    @speed = speed
+  end
+  
+  # this is reminiscent of our old friend, CerealBox#from_s
+  def self.deserialize(yaml_string)
+    YAML::load(yaml_string)
+  end
+  
+  # and this is a much-simplified version of our CerealBox#to_s
+  def serialize
+    YAML::dump(self)
+  end
+  
+  # now we're free to define #to_s however we like!
+  # ...which is great, because #to_s is for programmers to read, 
+  # not computers or users
+  def to_s
+    "Ogre: [strength = #{@strength}, speed = #{@speed}]"
+  end
+end
+
+wendigo = Ogre.new(47, 3)
+yaml = wendigo.serialize
+puts "The yaml looks like this:"
+p yaml
+puts "It's just a boring old string: #{yaml.class}"
+puts "...and it's easy to change back: #{Ogre.deserialize(yaml)}"
+puts
+
+shrek = Ogre.new(62, 12)
+fiona = Ogre.new(66, 37)
+ogres = [shrek, fiona]
+puts "We can even serialize arrays! They're just another object. #{ogres}"
+  
+
+class Ogre
+  attr_accessor :strength, :speed, :smell
+  def initialize(strength, speed, smell)
+    @strength = strength
+    @speed = speed
+    @smell = smell
+  end
+end
+
+class Dragon
+  attr_accessor :strength, :speed, :color
+  def initialize(strength, speed, color)
+    @strength = strength
+    @speed = speed
+    @color = color
+  end
+end
+
+class Fairy
+  attr_accessor :strength, :speed, :intelligence
+  def initialize(intelligence)
+    @strength = 1
+    @speed = 42
+    @intelligence = intelligence
+  end
+end
+
+def save_game(characters)
+	yaml = YAML::dump(characters)
+  game_file = GameFile.new("/my_game/saved.yaml")
+  game_file.write(yaml)
+end
+
+def load_game
+  game_file = GameFile.new("/my_game/saved.yaml")
+  yaml = game_file.read
+  YAML::load(yaml)
+end
+
+Array::
+
+zen, life = [42, 43]
+
+This is destructuring
+his is equivalent to using the bracket form or the at
+
+array = [42, 43]
+zen = array[0]
+life = array.at(1)
+puts zen
+puts life
+->
+42
+43
+
+zen, john = [[4, 8], [3, 16], [23, 42, 15]]
+p zen
+p john
+ stdout:
+[4, 8]
+[3, 16]
+
+def compute(ary)
+  return nil unless ary
+  ary.map { |(a, b)| !b.nil? ? a + b : a }
+end
+
+
+Ruby has a more dedicated way of destructuring using the splat (*) operator.
+eg. car, *cdr = [42, 43, 44]
+car: 42
+cdr: [43, 44]
+
+initial, last = [42, 43, 44]
+ stdout:
+initial: [42, 43]
+last: 44
+
+*initial, second_last, last = [42, 43, 44]
+ stdout:
+initial: [42]
+second_last: 43
+last: 44
+
+first, *middle, last = [42, 43, 44, 45, 46, 47]
+
+Now write an exercise to calculate the median from a set of numbers. Assuming that median method takes in the list as arguments passed in. 
+def median(*list)
+  return nil if list.empty?
+  n=list.length / 2
+  slist = list.sort
+  slist.length.odd? ? slist[(n+1) / 2] : (slist[n / 2]+slist[n / 2+1]) / 2.0
+end
+
+(Array.instance_methods - Object.methods).count
+=> 137
+Count/size/length
+
+[4, 8, 15, 16, 23, 42].count { |e| e.even? } 
+4
+
+
+puts [4, 8, 15, 16, 23, 42].index(15)
+puts [4, 8, 15, 16, 23, 42].index { |e| e % 2 == 0 }  
+stdout:
+2
+0
+
+The flatten method returns a one-dimensional array representation of the array. It recursively picks out all elements from the inner-arrays and lays them out in the outermost array.
+p [4, 8, 15, 16, 23, 42].flatten
+p [4, [8], [15], [16, [23, 42]]].flatten
+You can also restrict the number of levels flatten will jump in to. 
+[4, [8], [15], [16, [23, 42]]].flatten(1)
+-> [4, 8, 15, 16, [23, 42]]
+
+The compact method returns a new array with all the nil elements removed
+p [nil, 4, nil, 8, 15, 16, nil, 23, 42, nil].compact
+-> [4, 8, 15, 16, 23, 42]
+
+
+Write a method that counts the number of elements of the array that is being passed in, only if the index of the number 42 in the one-dimensional representation of the array is 5. 
+def zen(array)
+  array.flatten.count if array.flatten.compact.index(42)==5
+end
+
+Zip
+
+The zip method expects variable number of arguments and returns an array of arrays that contain corresponding elements from each array. That is, an element-wise merge with the original array. 
+p [4, 8, 15, 16, 23, 42].zip([42, 23, 16, 15, 8])
+ stdout:
+[[4, 42], [8, 23], [15, 16], [16, 15], [23, 8], [42, nil]]
+
+Slice
+
+ slice is same as using the literal [] form for extracting subarrays.
+
+It accepts an index, like array[2] or a Range, like array[2..7] 
+
+p [4, 8, 15, 16, 23, 42].slice(2)
+p [4, 8, 15, 16, 23, 42].slice(2..5)
+ stdout:
+
+15
+[15, 16, 23, 42
+
+Join
+
+join is useful for joining all the array elements into a string. You can add a separator between by specifying it as a String argument. 
+
+[4, 8, 15, 16, 23, 42].join(", ")
+-> "4, 8, 15, 16, 23, 42"
+
+
+should slice out only the last two elements
+def few2last(array)
+  array.slice(array.length-2,array.length-1).join("|")
+end
+
+Shift
+
+ shift removes the first element of the array and returns it. Shifts the rest of the array towards left, such that the second element becomes the first element, the third element becomes the second one and so on.
+
+You can also specify an optional argument -- shift(n) that will remove and return an array of the first n elements. 
+
+p [4, 8, 15, 16, 23, 42].shift
+p [4, 8, 15, 16, 23, 42].shift(2)
+-> 4
+[4, 8]
+
+unshift takes a variable number of arguments and adds them to the beginning of the array.
+p [8, 15, 16, 23, 42].unshift(4)
+p [16, 23, 42].unshift(4, 8, 15)
+-> [4, 8, 15, 16, 23, 42]
+[4, 8, 15, 16, 23, 42]
+
+
+
+ Stack is a last-in-first-out data structure that can be easily implemented using Array. We can simply restrict our interface that wraps an Array to just two operations -- push and pop and some other useful methods to emulate stack like functionality. You can read more about stacks here.
+
+We'll make some assumptions before we start the implementation.
+
+array[0] would always be the bottom of our stack. array[n] will be the top of the stack.
+
+size method will keep track of the size of our stack.
+
+push should always return self. pop should always return the value of the popped element. 
+
+Stack fix size implementation
+
+class Stack
+  def initialize(size)
+    @size = size
+    @top = -1
+    @data = Array.new(size)
+  end
+  
+  def pop
+    if empty?
+      return nil
+    end
+    data = @data[@top]
+    @top-=@top
+    data
+  end
+  
+  def push(element)
+    if full? || element.nil?
+      return nil
+    end
+    @top+=1
+    @data[@top]=element
+    self
+  end
+  
+  def size
+    @data.size
+  end
+  
+  def look
+    @data[@top]
+  end
+  
+  private
+  
+  def full?
+    @top==@size-1
+  end
+  
+  def empty?
+    @top==-1
+  end
+end
+
+dynamic ::
+
+class Stack
+  def initialize
+    @store = Array.new
+  end
+  
+  def pop
+    @store.pop
+  end
+  
+  def push(element)
+    @store.push(element)
+    self
+  end
+  
+  def size
+    @store.size
+  end
+end
+
+Queue
+
+ Queue is a first-in-first-out data structure in which the two major operations are enqueue and dequeue. enqueue adds an element to the rear of the queue and dequeue removes an element from the front of the queue. You can read more about queues here.
+
+array[0] will be the rear of our queue. array[n] will be the front of the queue.
+
+In this example, we'll use unshift to insert elements and pop to remove an element. This is because our queue is again, unbounded and can be grown as we keep on adding elements. These methods also allow us to not store any front or rear state in the class. 
+
+
+Dynamic
+
+class Queue
+  def initialize
+    @store = Array.new
+  end
+  
+  def dequeue
+    @store.pop
+  end
+  
+  def enqueue(element)
+    @store.unshift(element)
+    self
+  end
+  
+  def size
+    @store.size
+  end
+end
+
+Static
+
+class Queue
+  def initialize(size)
+    @size=size
+    @front = -1
+    @rear = -1
+    @store = Array.new(@size) 
+  end
+  
+  def dequeue
+    return nil if empty?
+    data = @store[@front]
+    @front==@rear ? @front=@rear=-1 : @front+=1
+    data
+  end
+  
+  def enqueue(element)
+    return nil if full? || element.nil?
+    @rear==-1 ? @front=@rear=0 : @rear+=1
+    @store[@rear]=element
+    self
+  end
+  
+  def size
+    @size
+  end
+  
+  private
+  
+  def full?
+    @rear+1==@size
+  end
+  
+  def empty?
+    @rear==-1 && @front==-1
+  end
+end
+
+
+Matrix
+
+Create couples
+
+we're not restricting couples in any way -- the only rule is no one can create a couple by him/herself.
+
+CHARACTERS = ["Joey Jeremiah", "Snake Simpson", "Wheels", "Spike Nelson", "Arthur Kobalewscuy", "Caitlin Ryan", "Shane McKay", "Rick Munro", "Stephanie Kaye"]
+
+
+Transopose
+
+  row_table = column_table.transpose
+
+def degrassi_couples
+  all = CHARACTERS.product(CHARACTERS)
+  all.reject {|c| c.first == c.last}
+end
+
+
+INCLUDE
+
+module Foo
+  def self.included(klass)
+    puts "Foo has been included in class #{klass}"
+  end
+end
+
+class Bar
+  include Foo
+end
+
+->
+Foo has been included in class Bar
+
+included is defined in the module level using the self keyword. 
+
+include has a limitation: it can only add instance level methods - not class level methods. 
+
+module Foo
+  def module_method
+    puts "Module Method invoked"
+  end
+end
+
+class Bar
+end
+
+bar=Bar.new
+bar.extend Foo
+bar.module_method
+
+OR
+
+module Foo
+  def method_in_module
+   	"The method defined in the module invoked"
+  end
+end
+
+class Bar
+  def initialize
+    self.extend Foo
+  end
+end
+
+
+Also.
+
+module Foo
+  def say_hi
+    puts "Hi!"
+  end
+end
+
+class Bar
+end
+
+Bar.extend Foo
+Bar.say_hi
+
+
+ Great. Lets do a quick recap now. So far in this lesson, we've learned:
+
+    The include method has a callback which is invoked whenever a module is included into another module/class - the included method. It is executed in the context of the mixin module and should be defined there. Its signature is self.included(base) where base is the target class.
+    While extend can be used to add instance methods to instances, we don't use that much. However, unlike include, extend can be used to add methods to the classes themselves.
+
+I want you to use the above two points to solve the following challenge. You have to modify the module Foo in the following exercise so that when you include it the class Bar, it also adds all the methods from ClassMethods into Bar as class methods. 
+
+module Foo
+  def self.included(kclass)
+    kclass.extend ClassMethods
+  end
+  module ClassMethods
+    def guitar
+      "gently weeps"
+    end
+  end
+end
+
+class Bar
+  include Foo
+end
+
+puts Bar.guitar
+
+Just like included which is a callback for include, there is a callback for extend and it is appropriately called extended. 
+
+
+Static method is defined by using self in module
+
+module Math
+  def self.square(number)
+    number ** 2
+  end
+end
+
+puts Math.square(6) 
+
+
+Exception
+
+=> begin-rescue-end
+
+def start_summer
+  raise Exception.new("overheated!")
+end
+
+begin
+  start_summer
+rescue Exception
+  puts "It's cool in here, boy. For the rest of the summer, we'll live in the refrigerator."
+end
+
+
+eg.
+EXAMPLE_SECRETS = ["het", "keca", "si", nil, "iel"]
+
+def decode(jumble)
+  secret = jumble.split("").rotate(3).join("")
+  announce(secret)
+  secret
+end
+
+def decode_all(secrets)
+  secrets.map {|s| decode(s) }
+rescue
+  puts "whew! safe."
+end
+
+Rescue one line form
+
+EXAMPLE_SECRETS = ["het", "keca", "si", nil, "iel"]
+
+def decode(jumble)
+  secret = jumble.split("").rotate(3).join("")
+  announce(secret)
+  secret
+end
+
+def decode_all(array)
+  array.each {|s| decode s} rescue "it's okay, little buddy."
+end
+
+we use the ensure keyword, at the same indentation level as rescue, to define code that should run both in success and failure scenarios.
+
+
+class UserDataAccess
+  attr_accessor :db
+  
+  def initialize
+    @db = Database.new
+  end
+
+	def find_user(name)
+  	@db.find("SELECT * FROM USERS WHERE NAME = '%'", name)
+  rescue Exception => e
+    puts "A database error occurred."
+  ensure
+    @db.close
+  end
+end
+
+Raise
+
+def string_slice(*strings)
+  if strings.size > 5
+    raise ArgumentError, "Only 5 strings are allowed"
+  end
+  strings.map do |string|
+    if string.size < 3
+      raise IndexError, "Strings need to be at least 3 characters long"
+    end 
+    string.slice(0..2)
+  end
+end
+
+Error class ancestors
+
+Exception
+
+p StandardError.ancestors
+p ZeroDivisionError.ancestors
+p SyntaxError.ancestors
+=>
+[StandardError, Exception
+[ZeroDivisionError, StandardError, Exception
+[SyntaxError, ScriptError, Exception
+
+Custom Error
+
+class InfinityError < StandardError
+end
+
+ie = InfinityError.new("infinity error was raised")
+
+begin
+  if 1.0 / 0.0
+    raise ie
+  end
+rescue InfinityError => error
+  p error.message
+end
+
+Raise a custom exception handler KasayaError in the robe method if the argument type is not a String "Kasaya". It should return "Dharmaguptaka's Kasaya Robe" otherwise. 
+
+class KasayaError < StandardError
+end
+ks = KasayaError.new
+def robe(type)
+  unless type.downcase == "kasaya"
+    raise ks 
+  else
+    "Dharmaguptaka's Kasaya Robe"
+  end
+  rescue KasayaError => error
+    p error
+end
+
+Literal
+
+A literal, in terms of data declaration, is simply when the input value (the code you type) is exactly equal to the output value
+:hello
+
+
+
+he e-30 in the above example is scientific notation for "less three decimal places". The underscore, however, means absolutely nothing; 
+
+describe(1_024)
+describe(1.2e-30)
+
+ am a: Fixnum and I look like: 1024
+I am a: Float and I look like: 1.2e-30
+
+Redifine methods using new
+
+def awkward_sheep
+	sheep = Class.new do
+  	def speak
+    	"Bah."
+	end
+end
+end
+
+OR
+
+def awkward_sheep
+  sheep = Class.new do
+    def speak
+      "Bah."
+    end
+  end
+    
+end
+
+
+An "enumerator", then, a the tool we can use to get each element out of a collection in this way. Before we go ahead, it's important to understand what Enumerable and Enumerator are in Ruby terms. Let's look at some examples.
+[5, 3].each
+-> #<Enumerator: [5, 3]:each>
+
+{:locke => "4", :hugo => "8"}.each_with_index do |kv, i| 
+  puts "#{kv} -- #{i}"
+end
+ stdout:
+[:locke, "4"] -- 0
+[:hugo, "8"] -- 1
+
+get keys
+
+def hash_keys(hash)
+  hash.map {|k,v| k}
+end
+
+[4, 8, 15, 16, 23, 42].inject({}) { |a, i| a.update(i => i) }
+=>
+{4=>4, 8=>8, 15=>15, 16=>16, 23=>23, 42=>42}
+
+
+
+def occurrences(str)
+	str.scan(/\w+/).inject(Hash.new(0)) do |build, word| 
+  	build[word.downcase] +=1
+  	build
+	end
+end
+
+all?, any? and none? are some useful querying enumerators that always return true or false.
+[4, 8, 15, 16, 23, "42"].any? { |e| e.class == String }
+
+ With a Hash, you can use these in two ways. Either with one argument that is a 2 element array of the key-value pair. candidate[0] is the key and candidate[1] is its value.
+Example Code:
+
+{:locke => 4, :hugo => 8}.any? { |candidate| candidate[1] > 4 } 
+
+The | (pipe character) is the Union operator. It joins two arrays and returns the result with duplicates removed. 
+union_example = ["a", "b", "a"] | ["c", "c"]
+p union_example
+->
+["a", "b", "c"]
+The & operator is the Intersection operator
+
+array_difference = [1,2,3, 1,2,3] - [1]
+p array_difference
+
+-> [2, 3, 2, 3]
+
+The - method preserves even the duplicate elements in the original array, however all occurence of each element in second array are removed from the result - including the duplicates. 
+
+class Order
+  GIFT_ITEMS = [Item.new(:big_white_tshirt), Item.new(:awesome_stickers)]
+  OUT_OF_STOCK_ITEMS = [Item.new(:ssd_harddisk)]
+
+  def initialize(order)
+    @order = order || []        
+  end
+  
+  def final_order
+    @order = @order - OUT_OF_STOCK_ITEMS
+    @order = @order | GIFT_ITEMS
+    @order
+  end
+end
+
+customer_order = Order.new([Item.new(:fancy_bag),Item.new(:ssd_harddisk)])
+
+p customer_order.final_order
+
+a = "tom"
+b = "jerry"
+superheroes = [a,b]
+a="batman"
+superheroes = [a,b]
+# your code here.
+
+
+
+This stack trace is useful when you are inside a method within a deep context and want to inspect it. This is provided by the caller method which if needed can be used to debug our code as well. An
+def c
+  puts "I'm in C. You know who called me?"
+  puts caller
+end
+
+def b
+  c
+end
+
+def a
+  b
+end
+
+a
+  
+ stdout:
+
+I'm in C. You know who called me?
+RubyMonk:10:in `b'
+RubyMonk:14:in `a'
+RubyMonk:17:in `<top (required)>'
+RubyMonk:18:in `eval'
+
+The caller method returns the stack trace as an array which is pretty convenient if you want to programmatically introspect it. 
+
+Logger class that you can use for logging. 
+debug < info < warn < error < fatal < unknown.
+
+require 'logger'
+logger = Logger.new($stdout)
+logger.warn("This is a warning")
+logger.info("This is an info")
+
+
+logger.level = Logger::INFO
+
+he Ruby VM keeps track of every object in memory through the object_id method which is present in all objects in Ruby. Different objects always have different ids. 
+
+
+Since all methods are implemented and stored by the class definition, it should be impossible for an object to define its own methods. However, Ruby provides a way around this - you can define methods that are available only for a specific object. Such methods are called Singleton Methods.	
+class Foo
+end
+foo=Foo.new
+def foo.shout
+  puts "Foo Foo Foo!"
+end
+foo.shout
+
+p Foo.new.respond_to?(:shout)
+
+! makes it modify
+
+Copy and frozen
+
+class Object
+  def frozen_clone
+    copy=self.clone
+    copy.freeze
+    copy
+  end
+end
+
