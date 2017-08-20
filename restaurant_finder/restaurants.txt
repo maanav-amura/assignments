@@ -1,7 +1,0 @@
-Burger king\tBurger\t400
-Pizza hut\tPizza\t500
-Dominoes\tPizza\t400
-Mcdonalds\tBurger\t300
-Subway\tSandwich\t200
-Cafecoffeeday\tCoffee\t150
-Shivsagar\tPunjabi\t300
