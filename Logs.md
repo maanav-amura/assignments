@@ -23,3 +23,8 @@
 * Finalized the schemas and models of inventory management system
 * Tested migrations, model and its interaction in a demo app
 * Implemented the models and migrations in main app
+
+**28/8**
+* Implemented the models and migrations in main app with updations and required validations
+* Tested migrations, model and its interaction, along with creating seed file
+* Partially implemented devise gem
