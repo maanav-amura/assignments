@@ -28,3 +28,8 @@
 * Implemented the models and migrations in main app with updations and required validations
 * Tested migrations, model and its interaction, along with creating seed file
 * Partially implemented devise gem
+
+**29/8**
+* Models and migrations design updated and implemented with required validations
+* Tested migrations, model and its interaction, along with appending seed file
+* Partially implemented devise gem using migration user and its views
