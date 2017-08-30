@@ -33,3 +33,8 @@
 * Models and migrations design updated and implemented with required validations
 * Tested migrations, model and its interaction, along with appending seed file
 * Partially implemented devise gem using migration user and its views
+
+**30/8**
+* Implemented devise gem using migration user and its views, implemented faker gem
+* Created Products view, controllers and CRUD operation
+
