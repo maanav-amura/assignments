@@ -38,3 +38,7 @@
 * Implemented devise gem using migration user and its views, implemented faker gem
 * Created Products view, controllers and CRUD operation
 
+**31/8**
+* Added Purchase functionality in products
+* Added Invoice controllers and views
+* Added Bootstrap to project and formatted it accordingly
