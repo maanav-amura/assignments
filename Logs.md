@@ -39,6 +39,7 @@
 * Created Products view, controllers and CRUD operation
 
 **31/8**
+* Updated and improvised the models and created a lib file for seeding data
 * Added Purchase functionality in products
 * Added Invoice controllers and views
 * Added Bootstrap to project and formatted it accordingly
