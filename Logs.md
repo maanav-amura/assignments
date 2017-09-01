@@ -1,4 +1,4 @@
-#Logs
+# Logs
 
 **17/8**
 * Worked on Cab booking system(Features, Approach, Class Diagram and Implementation)
@@ -43,3 +43,9 @@
 * Added Purchase functionality in products
 * Added Invoice controllers and views
 * Added Bootstrap to project and formatted it accordingly
+
+**1/9**
+* Updated product purchase and invoice generation using manual input quantity and price
+* Added products and managers control according to manager authority
+* Added invoice viewing capability to managers
+* Added user signup controller for device
