@@ -49,3 +49,11 @@
 * Added products and managers control according to manager authority
 * Added invoice viewing capability to managers
 * Added user signup controller for device
+
+**4/9**
+* Rspec added functionalities to all models
+  * Factory
+  * User
+  * Product
+  * Invoice Bill
+  * Invoice Detail
