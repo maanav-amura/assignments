@@ -51,9 +51,16 @@
 * Added user signup controller for device
 
 **4/9**
-* Rspec added functionalities to all models
+* Merged model into develop branch
+* Rspec added functionalities to User models and basic rspecs to other models
+
+**5/9**
+* Updated and added rspec to all models including
   * Factory
-  * User
+  * FactoryManager
   * Product
   * Invoice Bill
   * Invoice Detail
+
+**6/9**
+* Added specs for Product and Invoice controller, used faker, factory girl and simplecov
