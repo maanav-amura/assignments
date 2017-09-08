@@ -64,3 +64,13 @@
 
 **6/9**
 * Added specs for Product and Invoice controller, used faker, factory girl and simplecov
+
+**7/9**
+  * Added cancancan as access control for the project
+  * Configured the project for mongo db using mongoid
+  * Merged all the branches(controller, testing) into develop and created branhces from develop(mysql, mongodb)
+
+**8/9**
+  * Updated fields, associations and validations according to mongodb
+  * Integrated these changes into controllers and views
+
