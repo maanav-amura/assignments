@@ -27,6 +27,23 @@ String interpolation = When you insert variable into string
 
 Variables use one equals sign = to assign a value to a variable. When you're comparing two variables, make sure to use three ===.
 
+Datatypes- String, Number, Boolean
+
+print using console.log(); and interpolate strings using , (commas) or using + (plus)
+
+Math.random(); -> 0 to 1
+Math.random() * 50; -> 0 to 50.99
+Math.floor(Math.random() * 50); -> 0 to 50
+
+Comments - //,  /*   */
+
+declare variable - var myName = 'Arya';
+
+const allows to declare a variable constant eg. const pi = 3.16;
+
+To check if two things equal each other, we can use === (three equals in a row).
+To check if two things do not equal each other, we can write !== (exclamation with two equals in a row).
+
 Functions -
 
 var orderCount = 0;
@@ -206,7 +223,51 @@ function main() {
 $(document).ready(main);
 
 
+A great library for interacting with the DOM is jQuery.
 
+Jquery functionalities:
+
+function main() {
+  var $skillset = $('.skillset'); // jquery selector
+  alert($skillset);
+  $skillset.hide(); // hides the selector
+  $('.skillset').fadeIn(1000); // millisecond and loading page in faded animation
+  $('.projects').hide(); // hides the class
+  $('.projects-button').on('click', function() {
+    // $('.projects').show(); // shows the class
+    // $('.projects').toggle(); // toggles showing and hiding of a class
+    $(this).next().toggle(); // select the next element from current element and toggle it
+    // $('.projects-button').toggleClass('active'); // active is a class in css which is toggled (removed or added) by toggleClass
+    $(this).toggleClass('active'); // toggle class using this
+    $(this).text('Projects Viewed'); // turns the text of button when clicked
+  });
+}
+
+$(document).ready(main);
+
+.toggleClass is a function that will toggle a CSS class on the jQuery selector it's connected to. If the element has the class applied to it, toggleClass will remove it, and if the element does not have the class, it will add it.
+
+$(this) selects the clicked element. If there are multiple elements with a class of .example-class, this will only toggle the class of the one that is clicked on.
+
+Then, we can attach any jQuery function to next(). In this case, we attached hide, which would hide the next element after the $('.item-one') element.
+slideToggle can be called directly on a jQuery selector.
+slideToggle also takes a parameter of milliseconds that the animation should last. The default is 400 milliseconds, or 0.4 seconds.
+function main() {
+  $('.skillset').hide();
+  $('.skillset').fadeIn(1000);
+  $('.projects').hide();  
+  $('.projects-button').on('click', function() {
+    $(this).next().slideToggle(400);
+    $(this).toggleClass('active');
+    $(this).text('Projects Viewed');
+  });
+}
+$(document).ready(main);
+
+On click ->
+$('.example-class').on('click', function() {
+  // execute the code here when .example-class is clicked.
+});
 
 
 Summary ::
