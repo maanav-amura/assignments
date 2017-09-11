@@ -74,3 +74,7 @@
   * Updated fields, associations and validations according to mongodb
   * Integrated these changes into controllers and views
 
+**11/9**
+  * Completed the ruby assignment of collecge management system
+  * Completed the course of JavaScript on codeacademy
+
