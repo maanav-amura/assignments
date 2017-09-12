@@ -78,3 +78,7 @@
   * Completed the ruby assignment of collecge management system
   * Completed the course of JavaScript on codeacademy
 
+**12/9**
+  * Completed the JavaScript assignment of humanize()
+  * Read JavaScripts concepts related to Classes, Iterators, etc.
+  * Read about loadash and underscore library
