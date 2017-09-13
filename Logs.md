@@ -80,5 +80,10 @@
 
 **12/9**
   * Completed the JavaScript assignment of humanize()
-  * Read JavaScripts concepts related to Classes, Iterators, etc.
-  * Read about loadash and underscore library
+  * Read JavaScripts concepts related to Classes, Objects, Iterators, etc.
+  * Read about lodash(removes complexity of array, numbers, objects, strings,etc and helps them in faster iteration in a modular way, testing and creating composite functions) and underscore library(support both functional helpers: map, filter, invoke — as well as more specialized helpers: function binding, javascript templating, creating quick indexes, deep equality testing, and so on)
+
+**13/9**
+  * Read more in detail about JavaScript(Introduction to JavaScript codeacademy)
+  * Read about jquery and ajax
+  * Started with Backbone.js
