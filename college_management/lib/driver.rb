@@ -5,7 +5,7 @@ require_relative 'student'
 class Driver
   def launch!
     input = ''
-    until input == 7
+    until input == 10
       menu
       input = gets.chomp.to_i
       puts
@@ -23,6 +23,12 @@ class Driver
       when 6
         search_student
       when 7
+        list_colleges
+      when 8
+        list_courses
+      when 9
+        list_students
+      when 10
         exit
       end
     end
@@ -36,7 +42,10 @@ class Driver
     puts '4. Search College'
     puts '5. Search Course'
     puts '6. Search Student'
-    puts '7. Quit'
+    puts '7. List College'
+    puts '8. List Course'
+    puts '9. List Student'
+    puts '10. Quit'
     print 'Enter Choice :: '
   end
 
@@ -93,5 +102,17 @@ class Driver
     puts 'Enter StudentID to Search: '
     id = gets.chomp.to_i
     Student.find(id)
+  end
+
+  def list_colleges
+    College.all
+  end
+
+  def list_courses
+    Course.all
+  end
+
+  def list_students
+    Student.all
   end
 end

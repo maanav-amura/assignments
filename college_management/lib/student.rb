@@ -7,6 +7,7 @@ class Student
   end
 
   def self.all
+    print "Student details ::\n\n"
     puts "StudentId\tName\tAge"
     CSV.foreach('student.csv', 'r').with_index(1) { |record, ln| puts "#{ln}\t\t#{record[0].capitalize}\t#{record[1]}" }
     puts
