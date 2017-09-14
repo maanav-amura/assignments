@@ -87,3 +87,8 @@
   * Read more in detail about JavaScript(Introduction to JavaScript codeacademy)
   * Read about jquery and ajax
   * Started with Backbone.js
+
+**14/9**
+  * Read about backbone.js models and views
+  * Implemented backbone.js models in rails application
+  * Updated and improved rails assignment(college_management) by adding validations, error handling and object handling in csv, and adding comments using yardgen
