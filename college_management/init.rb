@@ -1,3 +1,6 @@
-require_relative 'lib/driver'
+APP_ROOT = File.dirname(__FILE__)
+$LOAD_PATH.unshift(File.join(APP_ROOT, 'lib'))
 
-Driver.new.launch!
+require 'app'
+
+App.new.launch!
