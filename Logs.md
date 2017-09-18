@@ -92,3 +92,13 @@
   * Read about backbone.js models and views
   * Implemented backbone.js models in rails application
   * Updated and improved rails assignment(college_management) by adding validations, error handling and object handling in csv, and adding comments using yardgen
+
+**15/9**
+  * Read about backbone.js models and collections
+  * Implemented models and collection of backbone
+
+**18/9**
+  * Implemented Backbone.js events on models and collections
+  * Presented a seminar on 'Rails routing'
+  * Added marionette js to project
+  * Read about morionette js and routing
