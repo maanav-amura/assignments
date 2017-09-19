@@ -101,4 +101,8 @@
   * Implemented Backbone.js events on models and collections
   * Presented a seminar on 'Rails routing'
   * Added marionette js to project
-  * Read about morionette js and routing
+  * Read about marionette js and routing
+
+**19/9**
+  * Implemented Marionette.js routers and controllers
+  * Read about views, itemsviews of marionette js
