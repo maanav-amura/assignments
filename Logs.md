@@ -106,3 +106,7 @@
 **19/9**
   * Implemented Marionette.js routers and controllers
   * Read about views, itemsviews of marionette js
+
+**20/9**
+  * Implemented product view without jst
+  * Implemented product view using jst
