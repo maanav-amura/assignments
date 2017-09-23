@@ -1,0 +1,24 @@
+CABRIDERS - A Cab Booking System
+
+class TaxiSystem
+# Taxi and Driver details initialization
+# Customer details
+
+class Person
+# Person attributes defined
+
+class Customer < Person
+# Book Rides, Cancel Rides, Start Rides
+# Free Rides functionality
+
+class Driver < Person
+# Rating functionality
+
+class Taxi
+# Taxi attributes defined here
+
+module Format
+# For formatting string class
+
+module Error
+# For exception handling
