@@ -110,3 +110,10 @@
 **20/9**
   * Implemented product view without jst
   * Implemented product view using jst
+
+**21/9**
+  * Implemented product index view in item view, layout view and collection view
+
+**22/9**
+  * Implemented composite view for products
+  * Started with html parser ruby assignment
