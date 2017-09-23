@@ -1,0 +1,505 @@
+=> Important Topics
+
+Proc and Lambda ( Definition, difference, usecase)
+Class variable and instance variable
+Accessors
+Class_eval vs instance_eval
+Type of calling methods
+Dup and clone, 
+What is difference between map and collect?
+Advantages of using git.
+Difference between fetch and pull.
+What is git stash
+Array   
+Hash
+Class
+Variables
+Include vs. extend?
+Load vs. require?
+module vs. class
+strings vs. symbols
+super vs super() vs super(args)
+== vs === vs eql? vs equal?
+
+======================================================================
+
+Every object has a unique object identifier
+instance variables, variables with values that are unique to each instance.
+Global variables are prefixed with a dollar sign ($), and instance variables begin with an “at” sign (@).
+Class variables start with two “at” signs (@@). Finally, class names, module names, and constants must start with an uppercase letter.
+
+a = [ 'ant', 'bee', 'cat', 'dog', 'elk' ]
+a[0]
+→ "ant"
+a[3]
+→ "dog"
+# this is the same:
+a = %w{ ant bee cat dog elk }
+	a[0]
+→ "ant"
+a[3]
+→ "dog"
+
+>> hash = Hash.new(0)
+=> {}
+>> hash.empty?
+=> true
+>> hash.keys
+=> []
+>> hash['k1']
+=> 0
+>> hash.keys
+=> []
+>> hash['k1']=5
+=> 5
+>> hash.keys
+=> ["k1"]
+>> hash.keys
+=> ["k1", "k2"]
+
+=> Regular Expressions (Characters - //, |, *, +, \s, \d, \w, .)
+
+In Ruby, you typically create a regular expression by writing a pattern
+between slash characters (/pattern/).
+
+For example, you could write a pattern that matches a string containing the text Perl or
+the text Python using the following regular expression.
+/Perl|Python/
+
+The forward slashes delimit the pattern, which consists of the two things we’re match-
+ing, separated by a pipe character ( | ). This pipe character means “either the thing on
+the right or the thing on the left,” in this case either Perl or Python
+/P(erl|ython)/
+
+You can also specify repetition within patterns. /ab+c/ matches a string containing an
+a followed by one or more b’s, followed by a c. Change the plus to an asterisk, and
+/ab*c/ creates a regular expression that matches one a, zero or more b’s, and one c.
+
+character classes such as \s , which matches a whitespace character (space, tab,
+newline, and so on); \d , which matches any digit; and \w , which matches any character
+that may appear in a typical word. A dot ( . ) matches (almost) any character
+
+eg. 
+
+/\d\d:\d\d:\d\d/
+/Perl.*Python/
+/Perl Python/
+/Perl *Python/
+/Perl +Python/
+/Perl\s+Python/
+/Ruby (Perl|Python)/
+	a time such as 12:34:56
+	Perl, zero or more other chars, then Python
+	Perl, a space, and Python
+	Perl, zero or more spaces, and Python
+	Perl, one or more spaces, and Python
+	Perl, whitespace characters, then Python
+	Ruby, a space, and either Perl or Python
+
+=~ can be used to match a string against a regular expression.
+if line =~ /Perl|Python/
+puts "Scripting language mentioned: #{line}"
+end
+
+line.sub(/Perl/, 'Ruby')
+# replace first 'Perl' with 'Ruby'
+line.gsub(/Python/, 'Ruby') # replace every 'Python' with 'Ruby'
+
+>> s =~ /Perl/
+=> nil
+>> s
+=> "hello world for pearl and python"
+>> s =~ /(P|p)earl/
+=> 16
+>> s.sub(/pearl|python/,"ruby")
+=> "hello world for ruby and python"
+>> s = "hello world for pearl and python"
+=> "hello world for pearl and python"
+>> s.gsub(/pearl|python/,"ruby")
+=> "hello world for ruby and ruby"
+
+Code blocks are just chunks of code between braces or between do . . . end .
+{ puts "Hello" } # this is a block
+do
+club.enroll(person)
+person.socialize
+end
+
+A method can then invoke an associated block one or more times using the Ruby yield
+statement.
+
+def call_block
+puts "Start of method"
+yield
+yield
+puts "End of method"
+end
+call_block { puts "In the block" }
+produces:
+Start of method
+In the block
+In the block
+End of method
+
+You can provide parameters to the call to yield : these will be passed to the block.
+Within the block, you list the names of the arguments to receive these parameters
+between vertical bars ( | ).
+def call_block
+yield("hello", 99)
+end
+call_block {|str, num| ... }
+
+printf "Num :: %5.2f\n%s",1234234234.23234424,"hello"
+
+No function overloading is allowed, infact the last Function will all above functions with the same name
+
+Program ::
+
+def greet_
+  yield
+end
+def greet(arg)
+  yield(arg)
+end
+a="world"
+greet_ { puts "Hi" }
+greet(a) { |ab| puts "Hi #{ab}" }
+arr=[1,2,3,4]
+arr.each {|a| print  "#{a}  "}
+arr.each do |a|
+  print  "#{a}  "
+end
+5.times { |i| puts "#{i} hi " } 
+3.upto(6) {|i| print " #{i} "}	
+printf "Num :: %5.2f\n%s",1234234234.23234424,"hello"
+
+Output ::
+
+Hi
+Hi world
+1  2  3  4  1  2  3  4  
+0 hi 
+1 hi 
+2 hi 
+3 hi 
+4 hi 
+ 3  4  5  6 
+Num :: 1234234234.23
+hello
+
+CLASSES
+
+Define class using 'class' keyword
+initialize is a special method for constructing an object
+Instance variables are accessible to all the methods in an object, and each object has its own copy of its instance variables.
+The “ < Song ” on the class definition line tells Ruby that a KaraokeSong is a sub-class of Song
+
+Decoupling(using parents instance variable directly inside child) - By poking around inside our parent’s internal structure, and explicitly examining its instance variables, we’re tying ourselves tightly to its implementation.
+Soln - (super)
+def to_s
+super + " [#@lyrics]"
+end
+
+A class variable is shared among all objects of a class, and it is also accessible to
+the class methods
+Class variable names start with two “at” signs, such as @@count .
+Unlike global and instance variables, class variables must be initialized before they are used
+
+person1 = "Tim"
+person2 = person1
+person1[0] = 'J'
+person1→"Jim"
+person2→"Jim"
+
+.dup =>
+
+person1 = "Tim"
+person2 = person1.dup
+person1[0] = "J"
+person1
+→ "Jim"
+person2
+→ "Tim"
+
+.freeze => 
+
+person1 = "Tim"
+person2 = person1
+person1.freeze
+person2[0] = "J"
+# prevent modifications to the object
+produces:
+prog.rb:4:in `[]=': can't modify frozen string (TypeError)
+
+Iterators
+
+find, collect, each, inject
+
+Check block given by block_given?
+
+lambda , which converts a block to a Proc object.
+
+def n_times(thing)
+return lambda {|n| thing * n }
+end
+
+p1 = n_times(23)
+p1.call(3)
+→ 69
+p1.call(4)
+→ 92
+p2 = n_times("Hello ")
+p2.call(3)
+→ "Hello Hello Hello "
+
+
+
+TEST
+
+assert_equal checks that its two parameters are equal
+assert_nil, etc
+extend any class as -> class TestSongList < Test::Unit::TestCase
+and define the method to test
+
+Nums
+
+normally −2 30 to 2 30 −1 or −2 62 to 2 62 −1) are held internally in binary
+form and are objects of class Fixnum . Integers outside this range are stored in objects
+of class Bignum
+
+Strings (squeeze, scan)
+
+String # squeeze , which trims runs of repeated characters.
+
+File.open("songdata") do |song_file|
+songs = SongList.new
+	song_file.each do |line|
+		file, length, name, title = line.chomp.split(/\s*\|\s*/)
+		name.squeeze!(" ")
+		songs.append(Song.new(title, name, length))
+	end
+puts songs[1]
+end
+produces:
+Song: Wonderful World--Louis Armstrong (2:58)
+
+String # scan is similar to split in that it breaks
+a string into chunks based on a pattern. However, unlike split , with scan you specify
+the pattern that you want the chunks to match
+
+Range
+
+digits = 0..9
+digits.include?(5)
+digits.min
+digits.max
+digits.reject {|i| i < 5 }
+digits.each {|digit| dial(digit) }
+
+spaceship operator, <=>
+
+Regex
+
+$& receives the part
+of the string that was matched by the pattern, $` receives the part of the string that
+preceded the match, and $' receives the string after the match.
+
+[0-9] Digit character
+[^0-9] Any character except a digit
+[\s\t\r\n\f] Whitespace character
+[^\s\t\r\n\f] Any character except whitespace
+[A-Za-z0-9_] Word character
+[^A-Za-z0-9_] Any character except a word character
+
+Blocks
+
+def take_block(p1)
+if block_given?
+yield(p1)
+else
+p1
+end
+end
+take_block("no block") → "no block"
+take_block("no block") {|s| s.sub(/no /, '') } → "block"
+
+passing block as a parameter
+class BlockPass
+  def initialize(arg,&block)
+    @arg=arg
+    @block=block
+  end
+  def calc(arg)
+    "#{@arg} = #{@block.call(arg)}"
+  end
+end
+block = BlockPass.new("hello world") {|a| a*1.1}
+puts block.calc(10).to_i
+
+Call lambda using &
+
+multiply = lambda {|i| puts i*5}
+(1..10).collect(&multiply)
+5.times &multiply
+
+print "(t)imes or (p)lus: "
+input = gets.chomp
+print "number: "
+number = gets.chomp.to_i
+if input =~ /^t/
+  calc = lambda {|a| a*=number}
+else
+  calc = lambda {|a| a+=number}
+end
+puts ((1..10).collect(&calc).join(", "))
+
+Swap in ruby => a, b = b, a
+
+for i in ['fee', 'fi', 'fo', 'fum']
+print i, " "
+end
+
+The redo statement causes a loop to repeat the current iteration. Sometimes, though,
+you need to wind the loop right back to the very beginning. The retry statement is just
+the ticket. retry restarts any kind of iterator loop.
+for i in 1..100
+print "Now at #{i}. Restart? "
+retry if gets =~ /^y/i
+end
+Running this interactively, you may see
+Now at 1. Restart? n
+Now at 2. Restart? y
+Now at 1. Restart? n
+
+begin
+eval string
+rescue SyntaxError, NameError => boom
+print "String doesn't compile: " + boom
+rescue StandardError => bang
+print "Error running script: " + bang
+end
+
+The ensure clause does just this. ensure goes after the last rescue clause and contains
+a chunk of code that will always be executed as the block terminates. It doesn’t matter
+if the block exits normally, if it raises and rescues an exception, or if it is terminated by
+an uncaught exception—the ensure block will get run.
+
+f = File.open("testfile")
+begin
+# .. process
+rescue
+# .. handle error
+ensure
+f.close unless f.nil?
+end
+
+The else clause is a similar, although less useful, construct. If present, it goes after the
+rescue clauses and before any ensure . The body of an else clause is executed only
+if no exceptions are raised by the main body of code.
+
+f = File.open("testfile")
+begin
+# .. process
+rescue
+# .. handle error
+else
+puts "Congratulations-- no errors!"
+ensure
+f.close unless f.nil?
+end
+
+raise
+raise "bad mp3 encoding"
+raise InterfaceException, "Keyboard failure", caller
+
+raise
+raise "Missing name" if name.nil?
+if i >= names.size
+raise IndexError, "#{i} >= size (#{names.size})"
+end
+raise ArgumentError, "Name too big", caller
+
+class RetryException < RuntimeError
+attr :ok_to_retry
+def initialize(ok_to_retry)
+@ok_to_retry = ok_to_retry
+end
+end
+
+def read_data(socket)
+data = socket.read(512)
+if data.nil?
+raise RetryException.new(true), "transient read error"
+end
+# .. normal processing
+end
+
+Catch and throw
+
+catch :flag do
+  while line=gets 
+    throw :flag if line.chomp == 'q'
+      puts line.chomp
+  end
+  # to do after throw
+end
+
+
+
+module Debug
+def who_am_i?
+"#{self.class.name} (\##{self.id}): #{self.to_s}"
+end
+end
+class Phonograph
+include Debug
+# ...
+end
+class EightTrack
+include Debug
+# ...
+end
+ph = Phonograph.new("West End Blues")
+et = EightTrack.new("Surrealistic Pillow")
+ph.who_am_i?
+et.who_am_i?
+→
+→
+"Phonograph (#935520): West End Blues"
+"EightTrack (#935500): Surrealistic Pillow"
+
+
+Ruby has two statements that do this. The load method includes the named Ruby
+source file every time the method is executed.
+load 'filename.rb'
+The more commonly used require method loads any given file only once. 2
+require 'filename'
+
+FILES
+
+file = File.new("testfile", "r")
+# ... process the file
+file.close
+
+File.open("testfile", "r") do |file|
+# ... process the file
+end
+
+Iterators - each_byte, each_line
+
+File.open("testfile") do |file|
+file.each_byte {|ch| putc ch; print "." }
+end
+produces:
+T.h.i.s. .i.s. .l.i.n.e. .o.n.e.	
+
+Justify
+
+2.3.1 :001 > "hello".ljust(30,"*")
+ => "hello*************************" 
+2.3.1 :002 > "hello".rjust(30,"*")
+ => "*************************hello" 
+2.3.1 :003 > "hello".center(30)
+ => "            hello             " 
+2.3.1 :004 > "hello".center(30,"*")
+ => "************hello*************" 

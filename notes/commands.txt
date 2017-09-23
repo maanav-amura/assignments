@@ -1,0 +1,112 @@
+Linux
+
+file dir commands ->  ~, pwd,ls,cd,cp,mv,rm,rmdir,mkdir -rf
+running a file -> ./filename
+
+Storage ->
+df: The df command displays filesystem disk space, df -h -> -h means "human-readable"
+du command displays the disk usage for a directory.
+free: The free command displays the amount of free and used memory
+top: The top ('table of processes') command
+uname -a: The uname command with the -a option prints all system 
+
+Man ->
+man man
+man cd
+
+Adding A New User
+The "adduser newuser" command will create a new general user called "newuser" on your system, and to assign a password for the newuser account use "passwd newuser".
+
+To search the names for <string> enter:
+whatis -r <string>
+For example, whatis -r cpy 
+=>
+memccpy (3)          - copy memory area
+memcpy (3)           - copy memory area
+mempcpy (3)          - copy memory area
+
+To search the names or descriptions for <string> enter:
+apropos -r <string>
+apropos -r "copy files"
+=>
+cp (1)               - copy files and directories
+cpio (1)             - copy files to and from archives
+
+Compiler and Interpreter
+
+ A program written in high-level language is called a source code. We need to convert the source code into machine code and this is accomplished by compilers and interpreters. 
+
+Interpreter	vs Compiler
+
+Translates program one statement at a time.	
+Scans the entire program and translates it as a whole into machine code.
+
+It takes less amount of time to analyze the source code but the overall execution time is slower.	
+It takes large amount of time to analyze the source code but the overall execution time is comparatively faster.
+
+No intermediate object code is generated, hence are memory efficient.	
+Generates intermediate object code which further requires linking, hence requires more memory.
+
+Continues translating the program until the first error is met, in which case it stops. Hence debugging is easy.	
+It generates the error message only after scanning the whole program. Hence debugging is comparatively hard.
+
+Programming language like Python, Ruby use interpreters.	
+Programming language like C, C++ use compilers.
+
+OOP  abstraction, encapsulation, inheritance, polymorphism
+
+1 .Polymorphism :
+The process of representing one form in multiple forms is known as Polymorphism.
+Example - 
+Suppose if you are in class room that time you behave like a student, when you are in market at that time you behave like a customer, when you at your home at that time you behave like a son or daughter, Here one person present in different-different behaviors.
+
+2. Abstraction :
+Abstraction is the concept of exposing only the required essential characteristics and behavior with respect to a context.
+Examples -
+Abstraction shows only important things to the user and hides the internal details, for example, when we ride a bike, we only know about how to ride bikes but can not know about how it work? And also we do not know the internal functionality of a bike.
+Abstraction is ATM Machine; All are performing operations on the ATM machine like cash withdrawal, money transfer, retrieve mini-statement…etc. but we can't know internal details about ATM.
+
+3. Encapsulation = Data Hiding + Abstraction.
+Example - Looking at the example of a power steering mechanism of a car. Power steering of a car is a complex system, which internally have lots of components tightly coupled together, they work synchronously to turn the car in the desired direction. It even controls the power delivered by the engine to the steering wheel. But to the external world there is only one interface is available and rest of the complexity is hidden. Moreover, the steering unit in itself is complete and independent. It does not affect the functioning of any other mechanism.
+
+4. Inheritance -
+Example - Father gives his property to child , father got that properties from child’s grandfather , so child is the taker and father is giver , hence father works as a base class and child as derived class , 
+
+The first step in OOP is to identify all the objects the programmer wants to manipulate and how they relate to each other, an exercise often known as data modeling
+Each distinct logic sequence is known as a method
+benefits:
+
+The concept of a data class makes it possible to define subclasses of data objects that share some or all of the main class characteristics. Called inheritance, this property of OOP forces a more thorough data analysis, reduces development time, and ensures more accurate coding.
+Since a class defines only the data it needs to be concerned with, when an instance of that class (an object) is run, the code will not be able to accidentally access other program data. This characteristic of data hiding provides greater system security and avoids unintended data corruption.
+The definition of a class is reuseable not only by the program for which it is initially created but also by other object-oriented programs (and, for this reason, can be more easily distributed for use in networks).
+The concept of data classes allows a programmer to create any new data type that is not already defined in the language itself.
+
+ non-OOP predecessor languages eg. c
+ procedural language, Modular programming 
+
+ Classes – the definitions for the data format and available procedures for a given type or class of object; may also contain data and procedures (known as class methods) themselves, i.e. classes contains the data members and member functions
+Objects – instances of classes
+
+Class variables – belong to the class as a whole; there is only one copy of each one
+Instance variables or attributes – data that belongs to individual objects; every object has its own copy of each one
+Member variables – refers to both the class and instance variables that are defined by a particular class
+Class methods – belong to the class as a whole and have access only to class variables and inputs from the procedure call
+Instance methods – belong to individual objects, and have access to instance variables for the specific object they are called on, inputs, and class variables
+
+Encapsulation
+Encapsulation is an object-oriented programming concept that binds together the data and functions that manipulate the data, and that keeps both safe from outside interference and misuse. Data encapsulation led to the important OOP concept of data hiding.
+If a class does not allow calling code to access internal object data and permits access through methods only, this is a strong form of abstraction or information hiding known as encapsulation. Some languages (Java, for example) let classes enforce access restrictions explicitly, for example denoting internal data with the private keyword and designating methods intended for use by code outside the class with the public keyword. Methods may also be designed public, private
+
+
+Objects can contain other objects in their instance variables; this is known as object composition. For example, an object in the Employee class might contain (point to) an object in the Address class, in addition to its own instance variables like "first_name" and "position". Object composition is used to represent "has-a" relationships: every employee has an address, so every Employee object has a place to store an Address object.
+
+Languages that support classes almost always support inheritance.
+
+Abstract classes cannot be instantiated into objects; they exist only for the purpose of inheritance into other "concrete" classes which can be instantiated. In Java, the final keyword can be used to prevent a class from being subclassed.
+
+Delegation is another language feature that can be used as an alternative to inheritance.
+
+Polymorphism[edit]
+Subtyping, a form of polymorphism, is when calling code can be agnostic as to whether an object belongs to a parent class or one of its descendants. For example, a function might call "make_full_name()" on an object, which will work whether the object is of class Person or class Employee. This is another type of abstraction which simplifies code external to the class hierarchy and enables strong separation of concerns.
+
+A software module hides information by encapsulating the information into a module or other construct which presents an interface.[1]

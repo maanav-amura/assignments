@@ -1,0 +1,400 @@
+ACTIVE RECORD
+
+Active Record is the M of MVC
+Active Record facilitates the creation and use of objects stored to a database
+Object Relational Mapping, ORM, allows you to make use of rails syntax to store and retrieve data from database without writing SQL statements
+
+Active record provides 
+- models
+- associations
+- database operation
+- validate models
+
+Converntion over configuration
+- explicit configuration would be needed only in those cases where you can't follow the standard convention.
+
+-> Naming convention
+Database Table - Plural with underscores separating words (e.g., book_clubs).
+Model Class - Singular with the first letter of each word capitalized (e.g., BookClub).
+Migration - Create + Pluralize Model Class name => eg. CreateBookClubs 
+
+-> Schema Conventions
+Foreign keys - For associations, named as singularized_table_name_id (e.g., item_id, order_id)
+Primary keys - default = id
+
+Models 
+
+class A < ApplicationRecord			# Inherits from ApplicationRecord < ActiveRecord::Base
+	self.table_name = 'admin_users' 	# To configure a differnet table in Model.rb
+	self.primary_key = "product_id"		# To override the primary key
+end
+
+-> Find
+
+ s = Subject.find(1)
+ s = Subject.find_by_id(1)
+ s = Subject.find_by(id: 1)
+
+ s = Subject.find_by(name: 'Sub1')
+ s = Subject.find_by_name('Sub1')
+
+-> Update
+
+ s.update(name:'Subject 1',visible:false) 
+ 
+ s.update_attributes(name:'Sub1',visible:true)
+
+ s.name = 'Sub1' 
+ s.save
+
+* Update many records at once
+
+ Subject.update_all "visible = 'true'"
+
+Hash conventions
+	s.update(:name => 'dsd')
+	s.update(name: 'dsd') -- v5+
+
+=> Validations
+
+class User < ApplicationRecord
+  validates :name, presence: true
+end
+ 
+user = User.new
+user.save  # => false
+user.save! # => ActiveRecord::RecordInvalid: Validation failed: Name can't be blank
+
+=> Migrations
+
+Managing a schema using rake
+
+Reference foriegn key as-
+	Subject = table_name
+      t.integer 'subject_id'
+      # same as : t.references :subject
+
+rails db:migrate
+rails db:rollback
+
+Each migration modifies it to add or remove tables, columns, or entries
+
+The timestamps macro adds two columns, created_at and updated_at. These special columns are automatically managed by Active Record if they exist.
+
+Generating migrations:
+- column_name:type
+rails generate migration CreateProducts name:string part_number:string
+- index
+rails generate migration AddPartNumberToProducts part_number:string:index
+- foriegn key
+rails generate migration AddUserRefToProducts user:references		# This migration will create a user_id column and appropriate index.
+- JoinTable
+rails g migration CreateJoinTableCustomerProduct customer product
+
+-> Model Generators
+Model will automatically generate migrations
+- rails generate model Product name:string description:text
+
+-> Passing modifiers
+Column Modifiers
+Column modifiers can be applied when creating or changing a column:
+
+- limit Sets the maximum size of the string/text/binary/integer fields.
+- precision Defines the precision for the decimal fields, representing the total number of digits in the number.
+- scale Defines the scale for the decimal fields, representing the number of digits after the decimal point.
+- polymorphic Adds a type column for belongs_to associations.
+- null Allows or disallows NULL values in the column.
+- default Allows to set a default value on the column. Note that if you are using a dynamic value (such as a date), the default will only be calculated the first time
+- index Adds an index for the column.
+- comment Adds a comment for the column.
+
+rails generate migration AddDetailsToProducts 'price:decimal{5,2}' supplier:references{polymorphic}
+
+class AddDetailsToProducts < ActiveRecord::Migration[5.0]
+  def change
+    add_column :products, :price, :decimal, precision: 5, scale: 2
+    add_reference :products, :supplier, polymorphic: true
+  end
+end
+
+-> Foreign key
+add_foreign_key :articles, :authors
+
+-> Reverting Previous Migrations
+You can use Active Record's ability to rollback migrations using the revert method:
+
+require_relative '20121212123456_example_migration'
+ 
+class FixupExampleMigration < ActiveRecord::Migration[5.0]
+  def change
+    revert ExampleMigration
+ 
+    create_table(:apples) do |t|
+      t.string :variety
+    end
+  end
+end
+
+-> Rollback
+rails db:rollback
+rollback latest migrations
+
+rails db:rollback STEP=3
+will revert the last 3 migrations
+
+The db:migrate:redo task is a shortcut for doing a rollback and then migrating back up again
+rails db:migrate:redo STEP=3
+
+The rails db:setup task will create the database, load the schema and initialize it with the seed data
+
+db:reset task will drop the database and set it up again. This is functionally equivalent to rails db:drop db:setup
+
+
+rails db:migrate:up VERSION=20080906120000
+rails db:migrate:down VERSION=20080906120000
+
+-> different environment: bin/rails db:migrate RAILS_ENV=test
+
+validates :foreign_key, uniqueness: true
+
+-> To add initial data after a database is created, Rails has a built-in 'seeds' feature
+just fill up db/seeds.rb with some Ruby code, and run rails db:seed:
+
+5.times do |i|
+  Product.create(name: "Product ##{i}", description: "A product.")
+end
+
+Rails supports six types of associations:
+
+belongs_to
+has_one
+has_many
+has_many :through
+has_one :through
+has_and_belongs_to_many
+
+
+A one-to-one relationship between two models, you'll need to add belongs_to to one, and has_one to the other.The distinction is in where you place the foreign key (it goes on the table for the class declaring the belongs_to association)
+
+Rails offers two different ways to declare a many-to-many relationship between models. The simpler way is to use has_and_belongs_to_many, which allows you to make the association directly
+The second way to declare a many-to-many relationship is to use has_many :through. This makes the association indirectly, through a join model
+Set up a has_many :through relationship if you need to work with the relationship model as an independent entity. If you don't need to do anything with the relationship model, it may be simpler to set up a has_and_belongs_to_many relationship
+You should use has_many :through if you need validations, callbacks or extra attributes on the join model
+
+-> Polymorphic associations
+With polymorphic associations, a model can belong to more than one other model, on a single association
+
+-> Self Joins
+In designing a data model, you will sometimes find a model that should have a relation to itself. For example, you may want to store all employees in a single database model, but be able to trace relationships such as between manager and subordinates. This situation can be modeled with self-joining associations:
+
+class Employee < ApplicationRecord
+  has_many :subordinates, class_name: "Employee",
+                          foreign_key: "manager_id"
+ 
+  belongs_to :manager, class_name: "Employee"
+end
+
+
+-> Caching
+
+author.books                 # retrieves books from the database
+author.books.size            # uses the cached copy of books
+author.books.reload.empty?   # discards the cached copy of books
+                             # and goes back to the database
+
+-> Scopes for belongs_to
+
+where
+includes
+readonly
+select
+
+The where method lets you specify the conditions that the associated object must meet.
+class book < ApplicationRecord
+  belongs_to :author, -> { where active: true }
+end
+
+-> ssociation Callbacks
+Normal callbacks hook into the life cycle of Active Record objects, allowing you to work with those objects at various points. For example, you can use a :before_save callback to cause something to happen just before an object is saved.
+
+Association callbacks are similar to normal callbacks, but they are triggered by events in the life cycle of a collection. There are four available association callbacks:
+
+before_add
+after_add
+before_remove
+after_remove
+You define association callbacks by adding options to the association declaration. For example:
+
+class Author < ApplicationRecord
+  has_many :books, before_add: :check_credit_limit
+ 
+  def check_credit_limit(book)
+    ...
+  end
+end
+
+You can stack callbacks on a single event by passing them as an array:
+
+class Author < ApplicationRecord
+  has_many :books,
+    before_add: [:check_credit_limit, :calculate_shipping_charges]
+
+-> Single Table Inheritance
+
+rails generate model car --parent=Vehicle
+
+class Car < Vehicle
+end
+
+Car.all
+
+-> belongs_to, has_one
+
+association
+build_association
+create_association
+
+belongs_to association supports these options:
+
+:autosave
+:class_name
+:counter_cache
+:dependent
+:foreign_key
+:primary_key
+:inverse_of
+:polymorphic
+:touch
+:validate
+:optional
+
+-> has_many, habtm
+
+collection
+collection<<(object, ...)
+collection.delete(object, ...)
+collection.destroy(object, ...)
+collection=(objects)
+collection_singular_ids
+collection_singular_ids=(ids)
+collection.clear
+collection.empty?
+collection.size
+collection.find(...)
+collection.where(...)
+collection.exists?(...)
+collection.build(attributes = {}, ...)
+collection.create(attributes = {})
+collection.create!(attributes = {})
+
+
+
+-> has_one, has_many options
+
+The has_many association supports these options:
+
+:as
+:autosave
+:class_name
+:counter_cache
+:dependent
+:foreign_key
+:inverse_of
+:primary_key
+:source
+:source_type
+:through
+:validate
+
+
+=> Validations
+
+p.new_record?
+=> true			# insert sql
+=> flase		# update sql
+
+create		=> false
+create!		=> triggers error
+save
+save!
+update
+update!
+
+
+Valid and Invalid?
+
+class Person < ApplicationRecord
+  validates :name, presence: true
+end
+ 
+Person.create(name: "John Doe").valid? # => true
+Person.create(name: nil).valid? # => false
+
+
+class Person < ApplicationRecord
+  validates :name, presence: true
+end
+ 
+>> p = Person.new
+# => #<Person id: nil, name: nil>
+>> p.errors.messages
+# => {}
+ 
+>> p.valid?
+# => false
+>> p.errors.messages
+# => {name:["can't be blank"]}
+ 
+>> p = Person.create
+# => #<Person id: nil, name: nil>
+>> p.errors.messages
+# => {name:["can't be blank"]}
+ 
+>> p.save
+# => false
+ 
+>> p.save!
+# => ActiveRecord::RecordInvalid: Validation failed: Name can't be blank
+ 
+>> Person.create!
+# => ActiveRecord::RecordInvalid: Validation failed: Name can't be blank
+
+- acceptance
+- associated
+- confirmation
+- exclusion
+- format
+- inclusion
+- length
+- numericality
+- presence
+- absence
+- uniquenes
+
+- validates_each
+- validates_with
+
+- allow_nil
+- allow_balnk
+
+
+-> Strict validations
+
+validates :name, presence: { strict: true }
+
+- errors.clear
+- errors.size
+
+
+<% if @article.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:</h2>
+ 
+    <ul>
+    <% @article.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
