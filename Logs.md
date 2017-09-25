@@ -117,3 +117,6 @@
 **22/9**
   * Implemented composite view for products
   * Started with html parser ruby assignment
+
+**25/9**
+  * Implemented html parser in ruby
