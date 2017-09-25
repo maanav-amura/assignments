@@ -1,17 +1,26 @@
 <html>
-<head><title>Hello</title></head>
-<body>
-	<h1>hello world
-	</h1>
-<div><p>do something</p>
-</div>
+  <head>
+    <title>Sample "Hello, World" Application</title>
+  </head>
+  <body style="bgcolor: white">
+    <table id="sample" border="0" cellpadding="10">
+      <tr>
+        <td>
+          <img id="spring" src="images/springsource.png"></img>
+        </td>
+        <td>
+          <h1>Sample "Hello, World" Application</h1>
+        </td>
+      </tr>
+    </table>
+    <p>This is the home page for the HelloWorld Web application. </p>
+    <p>To prove that they work, you can execute either of the following links:
+    <div>
+      <a href="hello.jsp">JSP page</a>
+      <a href="hello">servlet</a>
+    </div>
     <p class="name" width="100px">will you</p>
     <div id="description">nicely done</div>
     <img id="profile" src="image_src_will_be_here">this is image</img>
-    <table><tr>
-        <th>hello</th>
-      </tr>
-      <tr><td>world</td></tr>
-    </table>
-	</body>
+  </body>
 </html>
