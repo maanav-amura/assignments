@@ -22,7 +22,7 @@ class Application
       puts 'ID Found ::'
       puts "Tag\t=> #{node.tag}"
       puts "Parent Tag => #{node.parent.tag}"
-      puts "Attributes => #{node.attributes}"
+      puts "Attributes => #{node.attributes}" unless node.attributes.empty?
       puts "Content\t=> #{node.content}" unless node.content.nil?
     else
       puts 'No such ID found!'
