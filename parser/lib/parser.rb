@@ -24,11 +24,11 @@ class Parser
     File.open(html_file, 'r') do |file|
       current = nil
       file.each_line do |line|
-        line.scan(/<(.*?)>/).each do |tag|
-          if tag.first.start_with?('/')
+        line.scan(/(<(.*?>.*?)<(\/.*?)>|<(.*?)>)/).each do |tag|
+          if !tag[3].nil? && tag[3].start_with?('/')  # ending tag
             current = current.parent
           else
-            node = Node.new(tag.first)
+            node = Node.new(tag)
             if @root.nil?
               @root = node
             else
@@ -73,7 +73,7 @@ class Parser
   # @return [<type>] <description>
   #
   def return_all_tags
-    @tags.uniq!.each { |tag| puts tag }
+    @tags.uniq.each { |tag| puts tag }
   end
 
   #
@@ -83,7 +83,7 @@ class Parser
   #
   # @return node
   #
-  def return_by_id(id)
+  def return_content_by_id(id)
     current = nil
     stack = Stack.new
     stack.push(@root)

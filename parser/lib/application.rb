@@ -18,13 +18,14 @@ class Application
   end
 
   def print_node(node)
-    if node.nil?
-      puts 'No such ID found!'
-    else
+    unless node.nil?
       puts 'ID Found ::'
       puts "Tag\t=> #{node.tag}"
       puts "Parent Tag => #{node.parent.tag}"
       puts "Attributes => #{node.attributes}"
+      puts "Content\t=> #{node.content}" unless node.content.nil?
+    else
+      puts 'No such ID found!'
     end
   end
 
@@ -40,12 +41,7 @@ class Application
       else
         case choice
         when 1
-          print 'Enter file name :: '
-          file_name = gets.chomp
-          parser = Parser.new(file_name)
-          parser.parse_tree
-          puts 'Html File Parsed!'
-          parsed = true
+          parser, parsed = parse_by_file
         when 2
           print "\nHtml Tree ::\n"
           parser.print_tree
@@ -53,9 +49,7 @@ class Application
           print "\nHtml Tree Tags ::\n"
           parser.return_all_tags
         when 4
-          puts 'Enter id to search ::'
-          node = parser.return_by_id(gets.chomp)
-          print_node(node)
+          content_by_id(parser)
         when 5
           puts 'Exiting!'
           bool = false
@@ -64,5 +58,20 @@ class Application
         end
       end
     end
+  end
+
+  def parse_by_file
+    print 'Enter file name :: '
+    file_name = gets.chomp
+    parser = Parser.new(file_name)
+    parser.parse_tree
+    puts 'Html File Parsed!'
+    [parser, true]
+  end
+
+  def content_by_id(parser)
+    puts 'Enter id to search ::'
+    node = parser.return_content_by_id(gets.chomp)
+    print_node(node)
   end
 end
