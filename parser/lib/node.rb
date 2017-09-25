@@ -18,6 +18,7 @@ class Node
       parse_tag(tag[1])
     else
       @tag = tag[3].scan(/^[^\s]+/).first
+      @content = tag[4]
       parse_tag(tag[3])
     end
     @childs = []
