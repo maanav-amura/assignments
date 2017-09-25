@@ -18,15 +18,13 @@ class Application
   end
 
   def print_node(node)
-    unless node.nil?
-      puts 'ID Found ::'
-      puts "Tag\t=> #{node.tag}"
-      puts "Parent Tag => #{node.parent.tag}"
-      puts "Attributes => #{node.attributes}" unless node.attributes.empty?
-      puts "Content\t=> #{node.content}" unless node.content.nil?
-    else
-      puts 'No such ID found!'
-    end
+    return puts 'No such ID found!' if node.nil?
+
+    puts 'ID Found ::'
+    puts "Tag\t=> #{node.tag}"
+    puts "Parent Tag => #{node.parent.tag}"
+    puts "Attributes => #{node.attributes}" unless node.attributes.empty?
+    puts "Content\t=> #{node.content}" unless node.content.nil?
   end
 
   def launch
