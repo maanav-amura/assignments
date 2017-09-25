@@ -37,6 +37,7 @@ class Parser
             end
             @tags << node.tag
             current = node
+            current = current.parent if !tag[2].nil? && tag[2].start_with?('/')
           end
         end
       end
