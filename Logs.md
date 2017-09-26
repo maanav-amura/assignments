@@ -119,4 +119,7 @@
   * Started with html parser ruby assignment
 
 **25/9**
-  * Implemented html parser in ruby
+  * Completed implementation of html parser in ruby
+
+**26/9**
+  * Explored more in jquery, js and marionette views
