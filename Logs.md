@@ -123,3 +123,7 @@
 
 **26/9**
   * Explored more in jquery, js and marionette views
+
+**27/9**
+  * Implemented Jquery, javascript, json and api in freecodecamp
+  * Added marionette views for products remove, edit, show
