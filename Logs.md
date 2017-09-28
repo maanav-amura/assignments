@@ -127,3 +127,8 @@
 **27/9**
   * Implemented Jquery, javascript, json and api in freecodecamp
   * Added marionette views for products remove, edit, show
+
+**28/9**
+  * Completed marionette views for products(edit, new)
+  * Implemented search in ajax for product
+
