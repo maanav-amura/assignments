@@ -132,3 +132,6 @@
   * Completed marionette views for products(edit, new)
   * Implemented search in ajax for product
 
+**29/9**
+  * Added modularity using content and attribute class to html parser
+  * Read about Jasmine Testing framework
