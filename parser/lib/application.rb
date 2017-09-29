@@ -17,14 +17,18 @@ class Application
     print 'Enter Choice :: '
   end
 
+  def print_attributes(attributes)
+    puts 'Attributes => '
+    attributes.each { |att| puts "\t#{att.key} -> #{att.value}" }
+  end
+
   def print_node(node)
     return puts 'No such ID found!' if node.nil?
-
     puts 'ID Found ::'
     puts "Tag\t=> #{node.tag}"
     puts "Parent Tag => #{node.parent.tag}"
-    puts "Attributes => #{node.attributes}" unless node.attributes.empty?
-    puts "Content\t=> #{node.content}" unless node.content.nil?
+    print_attributes(node.attributes)
+    puts "Content\t=> #{node.content.data}"
   end
 
   def launch
@@ -35,7 +39,7 @@ class Application
       show_menu
       choice = gets.chomp.to_i
       if !parsed && choice != 1
-        puts 'Parse Html  file first!'
+        puts 'Parse html file first!'
       else
         case choice
         when 1
