@@ -24,8 +24,8 @@ class Parser
     File.open(html_file, 'r') do |file|
       current = nil
       file.each_line do |line|
-        line.scan(/(<(.*?>.*?)<(\/.*?)>|<(.*?)>(.*))/).each do |tag|
-          if !tag[3].nil? && tag[3].start_with?('/')  # ending tag
+        line.scan(%r{(<(.*?>.*?)<(\/.*?)>|<(.*?)>(.*))}).each do |tag|
+          if !tag[3].nil? && tag[3].start_with?('/') # ending tag
             current = current.parent
           else
             node = Node.new(tag)
