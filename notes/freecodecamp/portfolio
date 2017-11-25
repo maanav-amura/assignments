@@ -1,0 +1,120 @@
+<html>
+  <head>
+    <title>Maanav Shah</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  </head>
+  <style type="text/css">
+body {
+  font-family: 'Roboto', sans-serif;
+}
+h2 {
+  text-align: center;
+}
+nav{
+  font-size:14px;
+}
+.nav>li{height:100%;text-transform:uppercase;font-weight:bold;letter-spacing:2px;
+}
+.nav>li a{color:#ffffff;padding:10px 20px;
+}
+.nav>li a:hover{color:#722872;background:#fff;box-shadow:0px 2px 2px 1px rgba(0, 0, 0, 0.1);
+}
+.navbar img{
+  width: 60px;
+  height: 60px;
+}
+#top{
+  height:80px;
+  display:block;
+}
+main {
+  background-color: #ccc;
+}
+main >*:not(.scroll-top){max-width:1024px;margin:0 auto;box-shadow:0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+}
+main header{background:#aaa;text-align:right;padding:70px 10% 50px;-align-content:space-around;
+}
+main header .intro-text{max-width:675px;text-align:center;margin-bottom:30px;color: #fff;
+}
+main section{background:#eee;padding:40px 0;
+}
+hr.star-bright, hr.star-dark{margin:40px auto 30px;padding:0;max-width:512px;border:0;border-top:solid 5px;text-align:center;
+}
+#portfolio {
+  padding: 20px;
+}
+#portfolio h4 {
+  text-align: center;
+}
+footer #footer-above{
+  margin:0 auto;
+  padding: 20px;
+}
+footer{
+  color:#fff;
+  background-color:#000;
+  text-align:center;
+  box-shadow:0px 0px 1px 1px rgba(0, 0, 0, 0.2);
+}
+footer h3{margin-bottom:30px;color:#fff;
+}
+  </style>
+
+  <body>
+
+    <header class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <a class="scrollable" href="#top">
+          <img src="http://qlip.in/images/qlip.png" alt="qlip" title="qlip">
+        </a>
+        <nav class="nav navbar-nav navbar-right" id="profile">
+          <li class="active">
+            <a href="#top">About</a>
+          </li>
+          <li>
+            <a href="#portfolio">Portfolio</a>
+          </li>
+          <li>
+            <a href="#contact">Contact</a>
+          </li>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <header>
+        <div class="intro-text">
+          <p>A versatile programmer seeking opportunities to explore with an immense desire and ability to solve problem encompassing. In addition to being eminently ambitious and driven to flourish, I will carry out my responsibilities to be distinctly productive with regard to my performance.</p>
+          <hr class="star-bright">
+          <h2>Full Stack and Application Developer</h2>
+        </div>
+      </header>
+
+      <section id="portfolio">
+        <h2>Portfolio</h2>
+        <hr class="star-dark">
+        <h4>Remote Intelligent Assistant (REIA)</h4>
+        <p>A desktop assistant for Linux based systems that enable the user to communicate with his/her machine in English/Natural Language, which is translated to the corresponding Linux command by our system. The project is based on Machine Learning and Natural Language processing and was undertaken as our final year project.</p>
+        <h4>Sentiment analysis on movie reviews</h4>
+        <p>Analysing movie's based on user reviews and providing recommendation system by predicting their sentiments. It is a simple application using a Machine Learning model that works on a set of training data, using Random Forest Classifier to classify real time movie reviews, and design a movie recommendation system for the user based on that using Python and Cassandra.</p>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <hr class="star-dark">
+        <p style="text-align: center;">shah.maanav.07@gmail.com<br>
+        You can contact me on facebook, instagram and snapchat as well.</p>
+      </section>
+    </main>
+
+    <footer>
+      <div id="footer-above">
+        No rights reserved.
+        <script>document.write(new Date().getFullYear())</script>
+      </div>
+    </footer>
+  </body>
+</html>

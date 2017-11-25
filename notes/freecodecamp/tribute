@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>Steve Jobs</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script type="text/javascript">
+      window.console = window.console || function(t) {};
+    </script>
+    <style type="text/css">
+      body {
+        font: font-family: 'Roboto', sans-serif;
+        background-color: black;
+      }
+      .text-small {
+        font-size: 12px;
+      }
+      .thumbnail {
+        margin: 20px;
+        background-color: #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <div class="row">
+          <div class="col-xs-12">
+            <h1 class="text-center">Steve Jobs</h1>
+            <h2 class="text-center">American entrepreneur, businessman, inventor, and industrial designer</h2>
+            <div class="thumbnail">
+              <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaPxQJ6VFSRdMvKb3GktqguCWwAsVuvg00QKwxrNwCvmB-365Nmw" alt="steve-jobs">
+              <div class="caption text-center">
+                Jobs was the chairman, and the chief executive officer (CEO), and a co-founder of Apple Inc.; CEO and majority shareholder of Pixar;
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+          <h3>Here's a time line of Steve Job's life:</h3>
+            <p style="font-size: 14px">He was born in San Francisco to parents who had to put him up for adoption at birth; he was raised in the San Francisco Bay Area during the 1960s. Jobs then attended Reed College in 1972 before dropping out, and decided to travel through India in 1974 seeking enlightenment and studying Zen Buddhism. Jobs's declassified FBI report stated that an acquaintance knew that Jobs had used marijuana (the formerly illegalized drug in California), and LSD while he was in college. Jobs once told a reporter that taking LSD was "one of the two or three most important things" he did in his life.
+
+            Jobs and Wozniak co-founded Apple in 1976 to sell Wozniak's Apple I personal computer. The visionaries gained fame and wealth a year later for the Apple II, one of the first highly successful mass-produced personal computers. In 1979, after a tour of PARC, Jobs saw the commercial potential of the Xerox Alto, which was mouse-driven and had a graphical user interface (GUI). This led to development of the unsuccessful Apple Lisa in 1983, followed by the breakthrough Macintosh in 1984. In addition to being the first mass-produced computer with a GUI, the Macintosh introduced the sudden rise of the desktop publishing industry in 1985 with the addition of the Apple LaserWriter, the first laser printer to feature vector graphics. Following a long power struggle, Jobs was forced out of Apple in 1985.[8]
+
+            After leaving Apple, Jobs took a few of its members with him to found NeXT, a computer platform development company that specialized in state-of-the-art computers for higher-education and business markets. In addition, Jobs helped to initiate the development of the visual effects industry when he funded the spinout of the computer graphics division of George Lucas's Lucasfilm in 1986.[9] The new company, Pixar, would eventually produce the first fully computer-animated film, Toy Story—an event made possible in part because of Jobs's financial support.
+
+            In 1997, Apple merged with NeXT. Within a few months of the merger, Jobs became CEO of his former company; he revived Apple at the verge of bankruptcy. Beginning in 1997 with the "Think different" advertising campaign, Jobs worked closely with designer Jonathan Ive to develop a line of products that would have larger cultural ramifications: the iMac, iTunes and iTunes Store, Apple Store, iPod, iPhone, App Store, and the iPad. In 2001, the original Mac OS was replaced with a completely new Mac OS X, based on NeXT's NeXTSTEP platform, giving the OS a modern Unix-based foundation for the first time.
+
+            Jobs was diagnosed with a pancreatic neuroendocrine tumor in 2003 and died on October 5, 2011, of respiratory arrest related to the pancreatic tumor.</p>
+            <blockquote>
+            <p>"He was towering intellect, persistence and scientific vision can make to human peace and progress."</p>
+            <footer><cite>Steve Jobs</cite></footer>
+          </blockquote>
+          <h3>If you have time, you should read more about this incredible human being on his <a href="https://en.wikipedia.org/wiki/Steve_Jobs" target="_blank">Wikipedia entry</a>.</h3>
+        </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
